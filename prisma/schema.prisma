@@ -1,0 +1,34 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+  // プリズマからPostgresqlに接続できるようになる
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 認証関係登録するものを記述
+model User {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email String @unique // uniqueにして重複を防ぐ
+  hashedPassword String
+  tasks Task[] // model TaskでUser modelを使うため?
+}
+
+// Todoタスク関係
+  // Cascadeをつけるとタスクを作成したユーザーが削除されると関連したタスクも削除されると言う仕組み
+model Task {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title String
+  description String?
+  userId Int
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
