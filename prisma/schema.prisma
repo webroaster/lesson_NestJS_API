@@ -18,6 +18,7 @@ model User {
   updatedAt DateTime @updatedAt
   email String @unique // uniqueにして重複を防ぐ
   hashedPassword String
+  nickName String?
   tasks Task[] // model TaskでUser modelを使うため?
 }
 
