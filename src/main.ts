@@ -19,7 +19,7 @@ async function bootstrap() {
     // JWTトークンをクッキーベースで通信するため↓
     credentials: true,
     // バックエンドのサービスアクセスを許可したり、フロントエンドのドメインを設定したりする↓
-    origin: ['http://localhost:3000'],
+    origin: ['http://localhost:3000', 'https://lesson-next-js-mhmq.vercel.app'],
   });
   // フロントエンドから受けとったのクッキーを解析できるようにするため↓
   app.use(cookieParser());
